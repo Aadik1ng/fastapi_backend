@@ -1,29 +1,30 @@
-# Content from D:\fastapi_sentiment_analysis\app\main.py
 from fastapi import FastAPI, HTTPException, Depends, UploadFile, File
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from fastapi.middleware.cors import CORSMiddleware
 from app.utils import get_hashed_password, verify_password, create_access_token
 from app.schemas import User, Token, SentimentAnalysisResult
 from app.deps import get_current_user
-from app.sentiment import process_and_generate_report 
-
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-
- # Import the function from sentiment.py
-# Add CORS middleware
+from app.sentiment import process_and_generate_report
 
 # Initialize FastAPI app
 app = FastAPI()
 
 # In-memory database for simplicity
 fake_db = {}
+
+# Update CORS middleware to allow your Vercel frontend
+origins = [
+    "https://react-frontend-liard-two.vercel.app"
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allow all origins (you can restrict this to specific origins)
+    allow_origins=origins,  # Allow specific origins
     allow_credentials=True,
     allow_methods=["*"],  # Allow all methods (you can restrict this to specific methods like ["GET", "POST"])
     allow_headers=["*"],  # Allow all headers
 )
+
 # OAuth2 password bearer instance
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
 
@@ -44,6 +45,7 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends()):
     access_token = create_access_token(data={"sub": form_data.username})
     return {"access_token": access_token, "token_type": "bearer"}
 
+# Sentiment analysis endpoint
 @app.post("/analyze_sentiment", response_model=SentimentAnalysisResult)
 async def analyze_sentiment_endpoint(
     file: UploadFile = File(...),  # To accept the file upload
