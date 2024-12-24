@@ -22,7 +22,8 @@ This project includes a FastAPI backend for sentiment analysis and a React front
 
 1. Clone the repository:
     ```bash
-    git clone "https://github.com/your-username/fastapi-react-sentiment.git"
+    git clone "https://github.com/Aadik1ng/fastapi_backend"
+    git clone "https://github.com/Aadik1ng/React_Frontend"
     cd fastapi-react-sentiment
     ```
 
