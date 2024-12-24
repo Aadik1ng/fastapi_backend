@@ -5,9 +5,13 @@ from app.utils import get_hashed_password, verify_password, create_access_token
 from app.schemas import User, Token, SentimentAnalysisResult
 from app.deps import get_current_user
 from app.sentiment import process_and_generate_report
+import nltk
 
 # Initialize FastAPI app
 app = FastAPI()
+
+# Download vader_lexicon if not already available
+nltk.download('vader_lexicon')
 
 # In-memory database for simplicity
 fake_db = {}
