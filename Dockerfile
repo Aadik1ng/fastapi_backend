@@ -1,18 +1,18 @@
 # Use the official Python image
-FROM python:3.11
+FROM python:3.9-slim
 
-# Set the working directory
+# Set working directory
 WORKDIR /app
 
-# Copy requirements and install dependencies
-COPY requirements.txt .
+# Install dependencies
+COPY requirements.txt /app/
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy application code
-COPY . .
+# Copy the app code
+COPY . /app/
 
-# Expose the application port
+# Expose the dynamic port (optional, Railway automatically handles this)
 EXPOSE 8000
 
-# Run the FastAPI app using hypercorn
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0","--port","$PORT"]
+# Use the shell form CMD to ensure $PORT is substituted at runtime
+CMD uvicorn app.main:app --host 0.0.0.0 --port $PORT
