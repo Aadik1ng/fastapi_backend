@@ -8,7 +8,7 @@ import os
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
 # Directory where reports and charts will be saved
-STATIC_DIR = "D:/fastapi_sentiment_analysis/static"
+STATIC_DIR = "static"
 
 # Function to analyze sentiment using VADER
 def analyze_sentiment(text):
