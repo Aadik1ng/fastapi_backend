@@ -61,14 +61,16 @@ def process_and_generate_report(file_contents: bytes):
         plt.close(fig)
 
         # Return the file paths for the saved charts
+        # Replace with the full URL to your backend
         return {
             "sentiment_counts": sentiment_counts.to_dict(),
             "positive_count": sentiment_counts.get('Positive', 0),
             "neutral_count": sentiment_counts.get('Neutral', 0),
             "negative_count": sentiment_counts.get('Negative', 0),
-            "bar_chart_url": f"/static/bar_chart.png",  # Assuming the server serves static files from the static folder
-            "pie_chart_url": f"/static/pie_chart.png"   # Same here for the pie chart
+            "bar_chart_url": f"https://fastapibackend-production-8d1b.up.railway.app/static/bar_chart.png",  # Full URL to the bar chart
+            "pie_chart_url": f"https://fastapibackend-production-8d1b.up.railway.app/static/pie_chart.png"   # Full URL to the pie chart
         }
+
 
     except Exception as e:
         raise ValueError(f"Error processing file: {str(e)}")
