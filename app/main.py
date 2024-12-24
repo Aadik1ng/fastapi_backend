@@ -65,4 +65,4 @@ async def analyze_sentiment_endpoint(
 
 # Serve static files from the "static" directory
 from fastapi.staticfiles import StaticFiles
-app.mount("/static", StaticFiles(directory="D:/fastapi_sentiment_analysis/static"), name="static")
+app.mount("/static", StaticFiles(directory="static"), name="static")
