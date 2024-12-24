@@ -1,0 +1,23 @@
+{
+    "name": "fastapi-sentiment-analysis",
+    "build": {
+      "builder": "python",
+      "buildCommand": "pip install -r requirements.txt"
+    },
+    "deploy": {
+    "startCommand": "hypercorn app.main:app --bind \"[::]:$PORT\""
+  },
+    "env": {
+      "SECRET_KEY": "0e5a58b1b1f447a1b53ebc51e2b022aaf924f75ff0f541b0b7ffdfd586c7d8b6",
+      "ALGORITHM": "HS256",
+      "ACCESS_TOKEN_EXPIRE_MINUTES": "3000"
+    },
+    "services": [
+      {
+        "name": "static-files",
+        "type": "static",
+        "root": "./static"
+      }
+    ]
+  }
+  
