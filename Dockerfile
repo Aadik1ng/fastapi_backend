@@ -1,18 +1,18 @@
-# Use an official Python runtime as a parent image
-FROM python:3.11-slim
+# Use the official Python image
+FROM python:3.11
 
-# Set the working directory in the container
+# Set the working directory
 WORKDIR /app
 
-# Install dependencies
-COPY requirements.txt /app/
+# Copy requirements and install dependencies
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the content of the local directory to the container's work directory
-COPY . /app/
+# Copy application code
+COPY . .
 
-# Expose the port (optional, Railway does dynamic port binding)
+# Expose the application port
 EXPOSE 8000
 
-# Set the command to run Hypercorn with the environment variable for the port
-CMD ["hypercorn", "app.main:app", "--bind", "0.0.0.0:$PORT"]
+# Run the FastAPI app using hypercorn
+CMD ["hypercorn", "app.main:app", "--bind", "0.0.0.0:8000"]
